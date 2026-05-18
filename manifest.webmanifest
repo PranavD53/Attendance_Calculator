@@ -1,0 +1,17 @@
+{
+  "name": "AttendWise Survival Calculator",
+  "short_name": "AttendWise",
+  "description": "A student attendance survival calculator for school and college.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#edf3ef",
+  "theme_color": "#145c63",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

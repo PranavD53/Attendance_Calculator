@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#145c63">
+    <title>AttendWise Survival Calculator</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-labelledby="app-title">
+        <div class="intro">
+          <p class="eyebrow">Attendance survival planner</p>
+          <h1 id="app-title">Know exactly how many classes you can survive.</h1>
+          <p class="intro-copy">
+            Tune the calculator for school or college, days or classes, then get a direct plan for reaching your required attendance.
+          </p>
+        </div>
+
+        <section class="planner" aria-label="Attendance calculator">
+          <form class="control-panel" id="attendance-form">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Student profile</p>
+                <h2>Your setup</h2>
+              </div>
+              <span class="save-state" id="save-state">Autosaved</span>
+            </div>
+
+            <fieldset class="segmented" aria-label="Student type">
+              <legend>Studying in</legend>
+              <label>
+                <input type="radio" name="studentType" value="school" checked>
+                <span>School</span>
+              </label>
+              <label>
+                <input type="radio" name="studentType" value="college">
+                <span>College</span>
+              </label>
+            </fieldset>
+
+            <div class="grid-two">
+              <label class="field">
+                <span id="year-label">Class / grade</span>
+                <select id="year">
+                  <option value="Class 6">Class 6</option>
+                  <option value="Class 7">Class 7</option>
+                  <option value="Class 8">Class 8</option>
+                  <option value="Class 9">Class 9</option>
+                  <option value="Class 10">Class 10</option>
+                  <option value="Class 11">Class 11</option>
+                  <option value="Class 12" selected>Class 12</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Attendance counted by</span>
+                <select id="unit-mode">
+                  <option value="classes" selected>Number of classes</option>
+                  <option value="days">Complete days</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="target-row">
+              <label class="field">
+                <span>Required attendance</span>
+                <input id="target" type="number" min="1" max="100" step="0.5" value="75">
+              </label>
+              <div class="target-presets" aria-label="Target presets">
+                <button type="button" data-target="65">65%</button>
+                <button type="button" data-target="75">75%</button>
+                <button type="button" data-target="80">80%</button>
+                <button type="button" data-target="90">90%</button>
+              </div>
+            </div>
+
+            <div class="grid-three">
+              <label class="field">
+                <span>Total held</span>
+                <input id="total-held" type="number" min="0" step="1" value="120">
+              </label>
+              <label class="field">
+                <span>Attended</span>
+                <input id="attended" type="number" min="0" step="1" value="93">
+              </label>
+              <label class="field">
+                <span>Still remaining</span>
+                <input id="remaining" type="number" min="0" step="1" value="40">
+              </label>
+            </div>
+
+            <div class="actions">
+              <button class="primary-action" type="button" id="attend-next">Attend next</button>
+              <button class="secondary-action" type="button" id="miss-next">Miss next</button>
+              <button class="ghost-action" type="button" id="reset-demo">Reset</button>
+            </div>
+          </form>
+
+          <section class="result-panel" aria-live="polite">
+            <div class="meter-wrap">
+              <div class="meter" id="meter" aria-hidden="true">
+                <span id="meter-value">77.5%</span>
+              </div>
+              <div>
+                <p class="eyebrow" id="status-label">Safe zone</p>
+                <h2 id="main-result">You are above target.</h2>
+                <p id="main-copy">You can miss a few classes and still remain eligible.</p>
+              </div>
+            </div>
+
+            <div class="insight-grid">
+              <div class="insight">
+                <span>Need to attend</span>
+                <strong id="need-count">0</strong>
+                <small id="need-caption">Already on track</small>
+              </div>
+              <div class="insight">
+                <span>Can miss</span>
+                <strong id="miss-count">4</strong>
+                <small id="miss-caption">Before falling below target</small>
+              </div>
+              <div class="insight">
+                <span>Best possible</span>
+                <strong id="best-count">83.8%</strong>
+                <small>If you attend everything left</small>
+              </div>
+            </div>
+
+            <div class="forecast">
+              <div class="forecast-head">
+                <h3>Next stretch</h3>
+                <span id="forecast-note">One square per class</span>
+              </div>
+              <div class="forecast-track" id="forecast-track"></div>
+            </div>
+          </section>
+        </section>
+
+        <section class="details-grid" aria-label="Detailed planning">
+          <article class="detail-panel">
+            <div class="panel-heading compact">
+              <div>
+                <p class="eyebrow">College mode</p>
+                <h2>Subject planner</h2>
+              </div>
+              <button class="secondary-action small" type="button" id="add-subject">Add subject</button>
+            </div>
+            <div class="subject-list" id="subject-list"></div>
+          </article>
+
+          <article class="detail-panel">
+            <p class="eyebrow">Decision help</p>
+            <h2>Survival notes</h2>
+            <ul class="notes" id="notes"></ul>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
