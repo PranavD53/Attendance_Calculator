@@ -4,19 +4,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#145c63">
-    <title>AttendWise Survival Calculator</title>
+    <title>Survivor</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="app-shell">
-      <section class="workspace" aria-labelledby="app-title">
+      <section class="workspace" id="home" aria-labelledby="app-title">
+        <header class="app-header">
+          <a class="nav-brand" href="#home" aria-label="Survivor home">Survivor</a>
+          <div class="account-actions">
+            <span class="account-status" id="account-status"></span>
+            <span class="sync-pill" id="sync-pill">Guest mode</span>
+            <button class="primary-action" type="button" id="google-sign-in">Sign in</button>
+            <button class="secondary-action" type="button" id="sync-now">Refresh plan</button>
+            <button class="ghost-action" type="button" id="sign-out">Sign out</button>
+          </div>
+        </header>
+
         <div class="intro">
-          <p class="eyebrow">Attendance survival planner</p>
           <h1 id="app-title">Know exactly how many classes you can survive.</h1>
           <p class="intro-copy">
             Tune the calculator for school or college, days or classes, then get a direct plan for reaching your required attendance.
           </p>
+          <button class="install-action" type="button" id="install-app" hidden>Add to phone</button>
         </div>
 
         <section class="planner" aria-label="Attendance calculator">
@@ -24,24 +38,21 @@
             <div class="panel-heading">
               <div>
                 <p class="eyebrow">Student profile</p>
-                <h2>Your setup</h2>
+                <h2>Your details</h2>
               </div>
-              <span class="save-state" id="save-state">Autosaved</span>
+              <span class="save-state" id="save-state">Ready</span>
             </div>
 
-            <fieldset class="segmented" aria-label="Student type">
-              <legend>Studying in</legend>
-              <label>
-                <input type="radio" name="studentType" value="school" checked>
-                <span>School</span>
-              </label>
-              <label>
-                <input type="radio" name="studentType" value="college">
-                <span>College</span>
-              </label>
-            </fieldset>
-
             <div class="grid-two">
+              <label class="field">
+                <span>Course level</span>
+                <select id="course-level">
+                  <option value="school" selected>School</option>
+                  <option value="ug">College UG</option>
+                  <option value="pg">Masters / M.Tech</option>
+                </select>
+              </label>
+
               <label class="field">
                 <span id="year-label">Class / grade</span>
                 <select id="year">
@@ -54,7 +65,9 @@
                   <option value="Class 12" selected>Class 12</option>
                 </select>
               </label>
+            </div>
 
+            <div class="grid-two converter-row">
               <label class="field">
                 <span>Attendance counted by</span>
                 <select id="unit-mode">
@@ -62,6 +75,33 @@
                   <option value="days">Complete days</option>
                 </select>
               </label>
+
+              <label class="field" id="classes-per-day-field">
+                <span>Classes per day</span>
+                <input id="classes-per-day" type="number" min="1" step="1" value="6">
+              </label>
+            </div>
+
+            <div class="day-converter" id="day-converter">
+              <div>
+                <p class="eyebrow">Quick converter</p>
+                <h3>Turn days into classes</h3>
+              </div>
+              <div class="converter-controls">
+                <label class="field">
+                  <span>Total days</span>
+                  <input id="held-days" type="number" min="0" step="1" value="0">
+                </label>
+                <label class="field">
+                  <span>Attended days</span>
+                  <input id="attended-days" type="number" min="0" step="1" value="0">
+                </label>
+                <label class="field">
+                  <span>Remaining days</span>
+                  <input id="remaining-days" type="number" min="0" step="1" value="0">
+                </label>
+                <button class="secondary-action" type="button" id="apply-days">Apply</button>
+              </div>
             </div>
 
             <div class="target-row">
@@ -160,6 +200,7 @@
       </section>
     </main>
 
+    <script src="firebase-config.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

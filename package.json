@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "firebase": "^12.13.0"
+  },
+  "scripts": {
+    "deploy": "firebase deploy --only hosting",
+    "deploy:preview": "firebase hosting:channel:deploy preview",
+    "deploy:live": "firebase deploy --only hosting --project project-1-4bd0d"
+  }
+}
